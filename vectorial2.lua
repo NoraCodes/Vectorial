@@ -1,5 +1,5 @@
 --[[   
-   vectorial2.lua - A library for 2D vectors.
+   vectorial2.lua ver 0.2 - A library for 2D vectors.
    Copyright (C) 2015 Leo Tindall
 
    ---

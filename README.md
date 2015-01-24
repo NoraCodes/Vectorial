@@ -1,7 +1,9 @@
 # Vectorial
 A Lua library for easy, intuitive 2D and 3D vectors. `vectorial2.lua` and `vectorial3.lua`, respecitvely, serve as definitions for instantiation of and operations on 2D and 3D vector quantities.
 
-WARNING: Behavior of this library is NOT stable!
+WARNING: Behavior of this library is not entirely stable. Pick a release and use it.
+
+Current stable release is: *0.2*
 
 # Usage
 To use a vector library, simply `require "vectorial2"` or `require "vectorial3"` into a variable, i.e., `v2d = require "vectorial2"`.

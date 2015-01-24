@@ -1,5 +1,5 @@
 --[[   
-   vectorial3.lua - A library for 3D vectors.
+   vectorial3.lua ver 0.2 - A library for 3D vectors.
    Copyright (C) 2015 Leo Tindall
 
    ---
