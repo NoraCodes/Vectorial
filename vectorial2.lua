@@ -131,6 +131,13 @@ local module.Vector2D = function (x, y)
 		return out
 	end
 
+	v2d.__tostring = function(self)
+		--tostring handler for Vector2D
+		out = ""	--This is a string operation, so no deepcopy.
+		out = "[(X:"..self:getX().."),(Y:"..self:getY()..")]"
+		return out
+	end
+
 	return v2d
 end
 return module
