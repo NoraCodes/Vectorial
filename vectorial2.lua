@@ -48,17 +48,17 @@ local module = {}
 
 	v2d.__eq = function(lhs, rhs)
 		--Equal To operator for vector2Ds
-		return (lhs.x == rhs.x) and (lhs.y == rhs.y)
+		return (lhs.getX() == rhs.getX()) and (lhs.getY() == rhs.getY())
 	end
 	
 	v2d.__lt = function(lhs, rhs)
 		--Less Than operator for vector2Ds
-		return (lhs.x < rhs.x) and (lhs.y < rhs.y)
+		return (sqrt((lhs.getX()^2) + (lhs.getY()^2)) < sqrt((rhs.getX()^2) + (rhs.getY()^2)))
 	end
 	
 	v2d.__le = function(lhs, rhs)
 		--Less Than Or Equal To operator for vector2Ds
-		return (lhs.x <= rhs.x) and (lhs.y <= rhs.y)
+		return (sqrt((lhs.getX()^2) + (lhs.getY()^2)) <= sqrt((rhs.getX()^2) + (rhs.getY()^2)))
 	end
 	
 	--Operations
