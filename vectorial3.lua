@@ -145,6 +145,13 @@ local module.Vector3D = function (x, y, z)
 		return out
 	end
 
+	v3d.__tostring = function(self)
+		--tostring handler for Vector3D
+		out = ""	--This is a string operation, so no deepcopy.
+		out = "[(X:"..self:getX().."),(Y:"..self:getY().."),(Z:"..self:getZ()..")]"
+		return out
+	end
+
 	return v3d
 end
 return module
