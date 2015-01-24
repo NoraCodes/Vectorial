@@ -49,17 +49,17 @@ local module = {}
 
 	v3d.__eq = function(lhs, rhs)
 		--Equal To operator for Vector3Ds
-		return (lhs.x == rhs.x) and (lhs.y == rhs.y) and (lhs.z == rhs.z)
+		return (lhs.getX() == rhs.getX()) and (lhs.getY() == rhs.getY()) and (lhs.getZ() == rhs.getZ())
 	end
 	
 	v3d.__lt = function(lhs, rhs)
 		--Less Than operator for Vector3Ds
-		return (lhs.x < rhs.x) and (lhs.y < rhs.y) and (lhs.z < rhs.z)
+		return sqrt((lhs.getX()^2) + (lhs.getY()^2) + (lhs.getZ()^2)) < sqrt((rhs.getX()^2) + (rhs.getY()^2) + (lhs.getZ()^2))
 	end
 	
 	v3d.__le = function(lhs, rhs)
 		--Less Than Or Equal To operator for Vector3Ds
-		return (lhs.x <= rhs.x) and (lhs.y <= rhs.y) and (lhs.z <= rhs.z)
+		return sqrt((lhs.getX()^2) + (lhs.getY()^2) + (lhs.getZ()^2)) <= sqrt((rhs.getX()^2) + (rhs.getY()^2) + (lhs.getZ()^2))
 	end
 	
 	--Operations
