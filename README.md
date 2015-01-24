@@ -25,8 +25,8 @@ All of these work similarly for 3D vectors.
 ## Roadmap
 We are planning to add
 
-*Tables of vectors
-*Transformations (translate, stretch, shrink, rotate)
-*N-dimensional vectors
+* Tables of vectors
+* Transformations (translate, stretch, shrink, rotate)
+* N-dimensional vectors
 
 though probably not in that order.
