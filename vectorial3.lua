@@ -54,12 +54,12 @@ local module = {}
 	
 	v3d.__lt = function(lhs, rhs)
 		--Less Than operator for Vector3Ds
-		return sqrt((lhs.getX()^2) + (lhs.getY()^2) + (lhs.getZ()^2)) < sqrt((rhs.getX()^2) + (rhs.getY()^2) + (lhs.getZ()^2))
+		return sqrt((lhs.getX()^2) + (lhs.getY()^2) + (lhs.getZ()^2)) < sqrt((rhs.getX()^2) + (rhs.getY()^2) + (lhs.getZ()^2)) --We do this to compute the linear value of the vector so that, for example, (a % b) < (c % d) will not be broken.
 	end
 	
 	v3d.__le = function(lhs, rhs)
 		--Less Than Or Equal To operator for Vector3Ds
-		return sqrt((lhs.getX()^2) + (lhs.getY()^2) + (lhs.getZ()^2)) <= sqrt((rhs.getX()^2) + (rhs.getY()^2) + (lhs.getZ()^2))
+		return sqrt((lhs.getX()^2) + (lhs.getY()^2) + (lhs.getZ()^2)) <= sqrt((rhs.getX()^2) + (rhs.getY()^2) + (lhs.getZ()^2)) --We do this to compute the linear value of the vector so that, for example, (a % b) < (c % d) will not be broken.
 	end
 	
 	--Operations
