@@ -21,19 +21,22 @@
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 ]]
 local module = {}
-local module.Vector2D = function (x, y)
+      module.Vector2D = function (ix, iy)
 	local v2d = {}
-	      v2d.v = {x, y}
+	      v2d.v = {}
+	      v2d.v.x = ix
+	      v2d.v.y = iy
+	      mt ={} --Metatable
 	
-	function v2d.deepcopy(orig) --Deeply copy a table. This is for the operation metatables.
+	function v2d:deepcopy(orig) --Deeply copy a table. This is for the operation metatables.
     		local orig_type = type(orig)
     		local copy
     		if orig_type == 'table' then
         		copy = {}
         		for orig_key, orig_value in next, orig, nil do
-            			copy[deepcopy(orig_key)] = deepcopy(orig_value)
+            			copy[self:deepcopy(orig_key)] = self:deepcopy(orig_value)
         		end
-        		setmetatable(copy, deepcopy(getmetatable(orig)))
+        		setmetatable(copy, self:deepcopy(getmetatable(orig)))
    		else -- number, string, boolean, etc
         		copy = orig
     		end
@@ -60,83 +63,85 @@ local module.Vector2D = function (x, y)
 	
 	--Operations
 	
-	v2d:setX = function (x)
-		self.x = x
+	function v2d:setX(x)
+		self.v.x = x
 	end
 	
-	v2d:setY = function (y)
-		self.y = y
+	function v2d:setY(y)
+		self.v.y = y
 	end
 
-	v2d:getX = function ()
-		return self.x
+	function v2d:getX()
+		return self.v.x
 	end
 	
-	v2d:getY = function ()
-		return self.y
+	function v2d:getY()
+		return self.v.y
 	end
 	
-	v2d.__unm = function(rhs)
+	mt.__unm = function(rhs)
 		--Unary Minus (negation) operator for Vector2Ds
-		out = rhs.deepcopy(rhs) --Copy the operand for the output (else the output won't have metamethods)
-		out.setX(-rhs.getX()) --Operate on the X property
-		out.setY(-rhs.getY()) --Operate on the Y property
+		out = rhs:deepcopy(rhs) --Copy the operand for the output (else the output won't have metamethods)
+		out:setX(-rhs:getX()) --Operate on the X property
+		out:setY(-rhs:getY()) --Operate on the Y property
 		return out
 	end
 	
-	v2d.__add = function(lhs, rhs)
+	mt.__add = function(lhs, rhs)
 		--Addition operator for Vector2Ds
-		out = lhs.deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
-		out.setX(lhs.getX() + rhs.getX()) --Operate on the X property
-		out.setY(lhs.getY() + rhs.getY()) --Operate on the Y property
+		out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
+		out:setX(lhs:getX() + rhs:getX()) --Operate on the X property
+		out:setY(lhs:getY() + rhs:getY()) --Operate on the Y property
 		return out
 	end
 
-	v2d.__sub = function(lhs, rhs)
+	mt.__sub = function(lhs, rhs)
 		--Subtraction operator for Vector2Ds
-		out = lhs.deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
-		out.setX(lhs.getX() - rhs.getX()) --Operate on the X property
-		out.setY(lhs.getY() - rhs.getY()) --Operate on the Y property
+		out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
+		out:setX(lhs:getX() - rhs:getX()) --Operate on the X property
+		out:setY(lhs:getY() - rhs:getY()) --Operate on the Y property
 		return out
 	end
 
-	v2d.__mul = function(lhs, rhs)
+	mt.__mul = function(lhs, rhs)
 		--Multiplication operator for Vector2Ds
-		out = lhs.deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
-		out.setX(lhs.getX() * rhs.getX()) --Operate on the X property
-		out.setY(lhs.getY() * rhs.getY()) --Operate on the Y property
+		out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
+		out:setX(lhs:getX() * rhs:getX()) --Operate on the X property
+		out:setY(lhs:getY() * rhs:getY()) --Operate on the Y property
 		return out
 	end
 
-	v2d.__div = function(lhs, rhs)
+	mt.__div = function(lhs, rhs)
 		--Division operator for Vector2Ds
-		out = lhs.deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
-		out.setX(lhs.getX() / rhs.getX()) --Operate on the X property
-		out.setY(lhs.getY() / rhs.getY()) --Operate on the Y property
+		out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
+		out:setX(lhs:getX() / rhs:getX()) --Operate on the X property
+		out:setY(lhs:getY() / rhs:getY()) --Operate on the Y property
 		return out
 	end
 	
-	v2d.__mod = function(lhs, rhs)
+	mt.__mod = function(lhs, rhs)
 		--Vector distance operator for Vector2Ds. Denoted by modulo (%)
-		out = lhs.deepcopy(lhs)		--Copy the operand for the output (else the output won't have metamethods)
-		out.setX(math.abs(rhs.getX() - lhs.getX())) --Operate on the X property
-		out.setY(math.abs(rhs.getY() - lhs.getY())) --Operate on the Y property
+		out = lhs:deepcopy(lhs)		--Copy the operand for the output (else the output won't have metamethods)
+		out:setX(math.abs(rhs:getX() - lhs:getX())) --Operate on the X property
+		out:setY(math.abs(rhs:getY() - lhs:getY())) --Operate on the Y property
 		return out	
 	end
 
-	v2d.__concat = function(lhs, rhs)
+	mt.__concat = function(lhs, rhs)
 		--Linear distance operator for Vector2Ds. Denoted by concat (..)
 		out = 0		--This is a linear operation, so no deepcopy. 
-		out = math.sqrt((lhs.getX() - rhs.getX()) + (rhs.getY() - lhs.getY())) --Distance formula
+		out = math.sqrt((lhs:getX() - rhs:getX()) + (rhs:getY() - lhs:getY())) --Distance formula
 		return out
 	end
 
-	v2d.__tostring = function(self)
+	mt.__tostring = function(self)
 		--tostring handler for Vector2D
 		out = ""	--This is a string operation, so no deepcopy.
 		out = "[(X:"..self:getX().."),(Y:"..self:getY()..")]"
 		return out
 	end
+
+	setmetatable(v2d, mt)
 
 	return v2d
 end

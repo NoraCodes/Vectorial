@@ -21,19 +21,23 @@
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 ]]
 local module = {}
-local module.Vector3D = function (x, y, z)
+      module.Vector3D = function (ix, iy, iz)
 	local v3d = {}
-	      v3d.v = {x, y, z}
+	      v3d.v = {}
+	      v3d.v.x = ix
+	      v3d.v.y = iy
+	      v3d.v.z = iz
+	      mt = {} --Metatable
 	
-	function v3d.deepcopy(orig) --Deeply copy a table. This is for the operation metatables.
+	function v3d:deepcopy(orig) --Deeply copy a table. This is for the operation metatables.
     		local orig_type = type(orig)
     		local copy
     		if orig_type == 'table' then
         		copy = {}
         		for orig_key, orig_value in next, orig, nil do
-            			copy[deepcopy(orig_key)] = deepcopy(orig_value)
+            			copy[self:deepcopy(orig_key)] = self:deepcopy(orig_value)
         		end
-        		setmetatable(copy, deepcopy(getmetatable(orig)))
+        		setmetatable(copy, self:deepcopy(getmetatable(orig)))
    		else -- number, string, boolean, etc
         		copy = orig
     		end
@@ -60,97 +64,105 @@ local module.Vector3D = function (x, y, z)
 	
 	--Operations
 	
-	v3d:setX = function (x)
-		self.x = x
+	function v3d:setX(x)
+		self.v.x = x
 	end
 	
-	v3d:setY = function (y)
-		self.y = y
+	function v3d:setY(y)
+		self.v.y = y
 	end
 
-	v3d:setZ = function (y)
-		self.z = z
+	function v3d:setZ(z)
+		self.v.z = z
 	end
 
-	v3d:getX = function ()
-		return self.x
+	function v3d:getX()
+		return self.v.x
 	end
 	
-	v3d:getY = function ()
-		return self.y
+	function v3d:getY()
+		return self.v.y
 	end
 
-	v3d:getZ = function ()
-		return self.z
+	function v3d:getZ()
+		return self.v.z
 	end
 	
-	v3d.__unm = function(rhs)
+	mt.__unm = function(rhs)
 		--Unary Minus (negation) operator for Vector3Ds
-		out = rhs.deepcopy(rhs) --Copy the operand for the output (else the output won't have metamethods)
-		out.setX(-rhs.getX()) --Operate on the X property
-		out.setY(-rhs.getY()) --Operate on the Y property
-		out.setY(-rhs.getZ()) --Operate on the Z property
+		out = rhs:deepcopy(rhs) --Copy the operand for the output (else the output won't have metamethods)
+		out:setX(-rhs:getX()) --Operate on the X property
+		out:setY(-rhs:getY()) --Operate on the Y property
+		out:setY(-rhs:getZ()) --Operate on the Z property
 		return out
 	end
 	
-	v3d.__add = function(lhs, rhs)
+	mt.__add = function(lhs, rhs)
 		--Addition operator for Vector3Ds
-		out = lhs.deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
-		out.setX(lhs.getX() + rhs.getX()) --Operate on the X property
-		out.setY(lhs.getY() + rhs.getY()) --Operate on the Y property
-		out.setZ(lhs.getZ() + rhs.getZ()) --Operate on the Z property
+		out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
+		out:setX(lhs:getX() + rhs:getX()) --Operate on the X property
+		out:setY(lhs:getY() + rhs:getY()) --Operate on the Y property
+		out:setZ(lhs:getZ() + rhs:getZ()) --Operate on the Z property
 		return out
 	end
 
-	v3d.__sub = function(lhs, rhs)
+	mt.__sub = function(lhs, rhs)
 		--Subtraction operator for Vector3Ds
-		out = lhs.deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
-		out.setX(lhs.getX() - rhs.getX()) --Operate on the X property
-		out.setY(lhs.getY() - rhs.getY()) --Operate on the Y property
-		out.setZ(lhs.getZ() - rhs.getZ()) --Operate on the Z property
+		out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
+		out:setX(lhs:getX() - rhs:getX()) --Operate on the X property
+		out:setY(lhs:getY() - rhs:getY()) --Operate on the Y property
+		out:setZ(lhs:getZ() - rhs:getZ()) --Operate on the Z property
 		return out
 	end
 
-	v3d.__mul = function(lhs, rhs)
+	mt.__mul = function(lhs, rhs)
 		--Multiplication operator for Vector3Ds
-		out = lhs.deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
-		out.setX(lhs.getX() * rhs.getX()) --Operate on the X property
-		out.setY(lhs.getY() * rhs.getY()) --Operate on the Y property
-		out.setZ(lhs.getZ() * rhs.getZ()) --Operate on the Z property
+		out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
+		out:setX(lhs:getX() * rhs:getX()) --Operate on the X property
+		out:setY(lhs:getY() * rhs:getY()) --Operate on the Y property
+		out:setZ(lhs:getZ() * rhs:getZ()) --Operate on the Z property
 		return out
 	end
 
-	v3d.__div = function(lhs, rhs)
+	mt.__div = function(lhs, rhs)
 		--Division operator for Vector3Ds
-		out = lhs.deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
-		out.setX(lhs.getX() / rhs.getX()) --Operate on the X property
-		out.setY(lhs.getY() / rhs.getY()) --Operate on the Y property
-		out.setZ(lhs.getZ() / rhs.getZ()) --Operate on the Z property
+		out = lhs:deepcopy(lhs)--Copy the operand for the output (else the output won't have metamethods)
+		out:setX(lhs:getX() / rhs:getX()) --Operate on the X property
+		out:setY(lhs:getY() / rhs:getY()) --Operate on the Y property
+		out:setZ(lhs:getZ() / rhs:getZ()) --Operate on the Z property
 		return out
 	end
 	
-	v3d.__mod = function(lhs, rhs)
+	mt.__mod = function(lhs, rhs)
 		--Vector distance operator for Vector3Ds. Denoted by modulo (%)
-		out = lhs.deepcopy(lhs)		--Copy the operand for the output (else the output won't have metamethods)
-		out.setX(math.abs(rhs.getX() - lhs.getX())) --Operate on the X property
-		out.setY(math.abs(rhs.getY() - lhs.getY())) --Operate on the Y property
-		out.setZ(math.abs(rhs.getZ() - lhs.getZ())) --Operate on the Z property
+		out = lhs:deepcopy(lhs)		--Copy the operand for the output (else the output won't have metamethods)
+		out:setX(math.abs(rhs:getX() - lhs:getX())) --Operate on the X property
+		out:setY(math.abs(rhs:getY() - lhs:getY())) --Operate on the Y property
+		out:setZ(math.abs(rhs:getZ() - lhs:getZ())) --Operate on the Z property
 		return out	
 	end
 
-	v3d.__concat = function(lhs, rhs)
+	mt.__concat = function(lhs, rhs)
 		--Linear distance operator for Vector3Ds. Denoted by concat (..)
 		out = 0		--This is a linear operation, so no deepcopy. 
-		out = math.sqrt((lhs.getX() - rhs.getX()) + (rhs.getY() - lhs.getY()) + (lhs.getZ() - rhs.getZ())) --Distance formula
+		out = math.sqrt((rhs:getX() - lhs:getX()) + (rhs:getY() - lhs:getY()) + (rhs:getZ() - lhs:getZ())) --Distance formula
 		return out
 	end
 
-	v3d.__tostring = function(self)
+	mt.__tostring = function(s)
 		--tostring handler for Vector3D
 		out = ""	--This is a string operation, so no deepcopy.
-		out = "[(X:"..self:getX().."),(Y:"..self:getY().."),(Z:"..self:getZ()..")]"
+		out = "[(X:"
+		out = out .. s:getX() 
+		out = out .. "),(Y:" 
+		out = out .. s:getY() 
+		out = out .. "),(Z:" 
+		out = out .. s:getZ() 
+		out = out .. ")]"
 		return out
 	end
+	
+	setmetatable(v3d, mt)
 
 	return v3d
 end
