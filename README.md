@@ -5,7 +5,7 @@ WARNING: Behavior of this library is not entirely stable. Pick a release and use
 
 Current stable release is: *0.2*
 
-# Usage
+## Usage
 To use a vector library, simply `require "vectorial2"` or `require "vectorial3"` into a variable, i.e., `v2d = require "vectorial2"`.
 
 You can now create vectors with, for example, `a = v2d.Vector2D(2, 3)` will create the 2D vector (2,3), and `c = v3d.Vector3D(2, 3, 4)` will create the 3D vector (2,3,4).
@@ -21,3 +21,12 @@ There are two exceptions. The modulo operator (%) is defined as caluclating vect
 Using `tostring()` works as well, so `tostring(a)` would return `[(X:2),(Y:3)]`.
 
 All of these work similarly for 3D vectors.
+
+## Roadmap
+We are planning to add
+
+*Tables of vectors
+*Transformations (translate, stretch, shrink, rotate)
+*N-dimensional vectors
+
+though probably not in that order.
