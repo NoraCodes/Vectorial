@@ -22,11 +22,19 @@ Using `tostring()` works as well, so `tostring(a)` would return `[(X:2),(Y:3)]`.
 
 All of these work similarly for 3D vectors.
 
+Angles can be obtained with :getAngles(). `v2d:getAngle()` returns the angle of the vector in radians. `v3d:getAngle()` returns TWO values: "heading" and "carom". Heading is the angle of the X and Y components, while carom is the angle of the Z component to the X/Y plane.
+
+Length (distance from the origin) can be obtained with `v2d:getLength()`. It works identically for 2D vectors and 3D vectors.
+## Advanced Usage
+
+(Almost) all operations on Vectorial vectors return Vectorial vectors. So, for example, to get the angle between two Vector2Ds a and b, one could simply use `d = (a - b):getAngle()`.
+
 ## Roadmap
 We are planning to add
 
-* Tables of vectors
+* Arbitrary precision support (this may end up being a fork for various reasons)
 * Transformations (translate, stretch, shrink, rotate)
+* Tables of vectors with their own methods for retrieving, reordering, transforming, and operating on all or some subset of the vectors they contain.
 * N-dimensional vectors
 
 though probably not in that order.
