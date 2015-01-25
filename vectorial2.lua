@@ -142,7 +142,7 @@ local module = {}
 	mt.__concat = function(lhs, rhs)
 		--Linear distance operator for Vector2Ds. Denoted by concat (..)
 		out = 0		--This is a linear operation, so no deepcopy. 
-		out = math.sqrt((lhs:getX() - rhs:getX()) + (rhs:getY() - lhs:getY())) --Distance formula
+		out = math.sqrt(((lhs:getX() - rhs:getX())^2) + ((rhs:getY() - lhs:getY())^2)) --Distance formula
 		return out
 	end
 

@@ -44,6 +44,21 @@ local module = {}
     		return copy
 	end
 	
+	--Vector Specific Math
+
+	function v3d:getAngle() --Return the 3D angle (heading, carom) of the vector IN RADIANS!.
+		hdg = math.atan2(self:getY(), self:getX())
+		crm = math.atan2(self:getZ(), 0)
+		return hdg, crm
+	end
+	
+	function v3d:getLength() --Return the length of the vector (i.e. the distance from (0,0), see README.md for examples of using this)
+		origin = self:deepcopy(self) --Get a new vector to work with
+		origin:setX(0) --Set the origin equal to the geometric origin
+		origin:setY(0)
+		origin:setZ(0)
+		return self .. origin --Linear distance from us to the origin
+	end
 
 	--Comparisons
 
@@ -145,7 +160,7 @@ local module = {}
 	mt.__concat = function(lhs, rhs)
 		--Linear distance operator for Vector3Ds. Denoted by concat (..)
 		out = 0		--This is a linear operation, so no deepcopy. 
-		out = math.sqrt((rhs:getX() - lhs:getX()) + (rhs:getY() - lhs:getY()) + (rhs:getZ() - lhs:getZ())) --Distance formula
+		out = math.sqrt(((rhs:getX() - lhs:getX())^2) + (((rhs:getY() - lhs:getY())^2) + ((rhs:getZ() - lhs:getZ())^2))) --Distance formula
 		return out
 	end
 
