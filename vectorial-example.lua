@@ -38,11 +38,14 @@ print(tostring(a / b) .. "\n" .. tostring(c / d))
 print("\nVector distance:")
 print(tostring(a % b) .. "\n" .. tostring(c % d))
 print("\nLinear distance:")
-print(tostring(a .. b) .. "\n" .. tostring(c .. d))
+print("2D: " .. tostring(a .. b) .. "\n3D: " .. tostring(c .. d))
 
 print("\n2D Angles:")
 print("A: " .. tostring(a:getAngle()) .. " radians")
+print("\n3D Angles:")
+hdg, crm = c:getAngle()
+print("C: (hdg)" .. hdg .." | (crm)" .. crm .. " radians")
 print("\nLength:")
-print("A: " .. tostring(a:getLength()))
+print("A: " .. tostring(a:getLength()), "C: " .. tostring(c:getLength()))
 
 
