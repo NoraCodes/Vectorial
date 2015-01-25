@@ -43,8 +43,18 @@ local module = {}
     		return copy
 	end
 
+	--Vector Specific Math
+
+	function v2d:getAngle() --Return the 2D angle of the vector IN RADIANS!.
+		return math.atan2(self:getY(), self:getX())
+	end
 	
-	
+	function v2d:getLength() --Return the length of the vector (i.e. the distance from (0,0), see README.md for examples of using this)
+		origin = self:deepcopy(self) --Get a new vector to work with
+		origin:setX(0) --Set the origin equal to the geometric origin
+		origin:setY(0)
+		return self .. origin --Linear distance from us to the origin
+	end
 
 	--Comparisons
 
