@@ -40,3 +40,9 @@ print(tostring(a % b) .. "\n" .. tostring(c % d))
 print("\nLinear distance:")
 print(tostring(a .. b) .. "\n" .. tostring(c .. d))
 
+print("\n2D Angles:")
+print("A: " .. tostring(a:getAngle()) .. " radians")
+print("\nLength:")
+print("A: " .. tostring(a:getLength()))
+
+
