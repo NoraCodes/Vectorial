@@ -48,4 +48,23 @@ print("C: (hdg)" .. hdg .." | (crm)" .. crm .. " radians")
 print("\nLength:")
 print("A: " .. tostring(a:getLength()), "C: " .. tostring(c:getLength()))
 
+a = v2d.Vector2D(3, 5)
+b = v2d.Vector2D(-3, 5)
+c = v2d.Vector2D(3, -5)
+d = v2d.Vector2D(-3, -5)
+print("\nAveraging 2D vectors:")
+print("A: " .. tostring(a) .."\tB: ".. tostring(b) .. "\nC: " .. tostring(c) .. "\tD: " .. tostring(d))
+v = v2d.average({a,b,c,d})
+print("Avg:" .. tostring(v))
+
+a = v3d.Vector3D(3, 5, 7)
+b = v3d.Vector3D(-3, 5, 7)
+c = v3d.Vector3D(3, -5, -7)
+d = v3d.Vector3D(-3, -5, -7)
+print("\nAveraging 3D vectors:")
+print("A: " .. tostring(a) .."\tB: ".. tostring(b) .. "\nC: " .. tostring(c) .. "\tD: " .. tostring(d))
+v = v3d.average({a,b,c,d})
+print("Avg:" .. tostring(v))
+
+
 
