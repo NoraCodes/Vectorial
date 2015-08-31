@@ -58,24 +58,15 @@ local module = {}
 	
 	function module.average (vectors)
 		local n = #vectors
-		local new_vectors = {}
+		local tmp = module.Vector2D(0, 0) 
 		local j = 1 --Position in new_vectors
 		if n == 0 then
 			error("average() called with 0 inputs!")
 		end
-		if n == 1 then
-			return new_vectors[1]
-		elseif n == 2 then
-			temp_vector = vectors[1] + vectors[2]
-			temp_vector = module.Vector2D(temp_vector.v.x / 2, temp_vector.v.y / 2)
-			return temp_vector
-		else
-			for i = 1, n, 2 do
-				new_vectors[j] = module.average ({vectors[i], vectors[i+1]})
-				j = j + 1
-			end
-			return module.average (new_vectors)
+		for i, vector in ipairs(vectors) do
+			tmp = tmp + vector	
 		end
+		return tmp / module.Vector2D(n, n)
 	end
 			
 
